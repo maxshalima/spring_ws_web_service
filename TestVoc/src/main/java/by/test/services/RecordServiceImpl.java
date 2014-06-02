@@ -23,6 +23,7 @@ public class RecordServiceImpl implements RecordService {
 	@Override
 	@Cacheable("vocabloryList")
 	public List<String> getAllVocabloryNames() throws Exception {
+		// searchRecordsLessThan((long)1,"Dict1");
 		Storage storage = Manager.getInstance().getStorage();
 		return storage.getDictionariesNames();
 	}

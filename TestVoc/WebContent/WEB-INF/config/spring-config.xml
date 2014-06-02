@@ -29,6 +29,14 @@
 		</property>
 	</bean>
 
+	<sws:interceptors>
+		<bean id="validatingInterceptor"
+			class="org.springframework.ws.soap.server.endpoint.interceptor.PayloadValidatingInterceptor">
+			<property name="schema" value="RecordServiceOperations.xsd" />
+			<property name="validateRequest" value="true" />
+			<property name="validateResponse" value="false" />
+		</bean>
+	</sws:interceptors>
 
 	<context:component-scan base-package="by.test.services" />
 	<sws:annotation-driven />
@@ -50,4 +58,6 @@
 		<property name="serviceName" value="RecordServiceServices" />
 		<property name="locationUri" value="/endpoints" />
 	</bean>
+
+
 </beans>
