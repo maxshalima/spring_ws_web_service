@@ -1,3 +1,4 @@
+by\test\services\RecordServiceImpl$1.class
 by\test\webservices\recordservice\GetNumberOfRecordsRequest.class
 by\test\webservices\recordservice\package-info.class
 by\test\services\RecordService.class
@@ -13,6 +14,7 @@ by\test\webservices\package-info.class
 by\test\webservices\ObjectFactory.class
 by\test\webservices\recordservice\GetNumberOfRecordsResponse.class
 by\test\webservices\recordservice\AddRecordToVocabloryResponse.class
+by\test\services\RecordServiceStub.class
 by\test\services\RecordServiceImpl.class
 by\test\webservices\recordservice\AddRecordToVocabloryRequest.class
 by\test\services\endpoints\RecordServiceEndpoint.class

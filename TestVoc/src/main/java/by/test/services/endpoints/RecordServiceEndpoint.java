@@ -31,7 +31,8 @@ public class RecordServiceEndpoint {
 			@RequestPayload SearchRecordsRequest request) throws Exception {
 		SearchRecordsResponse response = new SearchRecordsResponse();
 		List<VocabloryRecord> vocabloryRecords = recordService_i
-				.searchRecordsLessThan(request.getContent());
+				.searchRecordsLessThan(request.getContent(),
+						request.getVocablory());
 		response.getRecordList().addAll(vocabloryRecords);
 		return response;
 	}
@@ -41,7 +42,7 @@ public class RecordServiceEndpoint {
 	GetAllVocabloriesResponse getAllVocablories(
 			@RequestPayload GetAllVocabloriesRequest request) throws Exception {
 		GetAllVocabloriesResponse response = new GetAllVocabloriesResponse();
-		List<String> vocabloryList = recordService_i.getAllVocablories();
+		List<String> vocabloryList = recordService_i.getAllVocabloryNames();
 		response.getVocabloriesList().addAll(vocabloryList);
 		return response;
 	}
@@ -51,7 +52,7 @@ public class RecordServiceEndpoint {
 	GetNumberOfRecordsResponse getNumberOfRecord(
 			@RequestPayload GetNumberOfRecordsRequest request) throws Exception {
 		GetNumberOfRecordsResponse response = new GetNumberOfRecordsResponse();
-		Long numberOfRecords = recordService_i.getNumberOfRecords();
+		String numberOfRecords = recordService_i.getNumberOfRecords();
 		response.setRecordNumber(numberOfRecords);
 		return response;
 	}
