@@ -4,8 +4,7 @@
 	targetNamespace="http://by/test/webservices/recordservice"
 	elementFormDefault="qualified">
 
-	<xsd:import namespace="http://webservices.test.by"
-		schemaLocation="VocabloryRecord.xsd" />
+	<xsd:import namespace="http://webservices.test.by" schemaLocation="VocabloryRecord.xsd" />
 
 	<xsd:element name="GetAllVocabloriesRequest">
 		<xsd:complexType>
@@ -33,7 +32,7 @@
 	<xsd:element name="GetNumberOfRecordsResponse">
 		<xsd:complexType>
 			<xsd:sequence>
-				<xsd:element name="RecordNumber" type="xsd:string" />
+				<xsd:element name="RecordNumber" type="xsd:long" />
 			</xsd:sequence>
 		</xsd:complexType>
 	</xsd:element>
@@ -64,7 +63,7 @@
 	<xsd:element name="SearchRecordsResponse">
 		<xsd:complexType>
 			<xsd:sequence>
-				<xsd:element name="RecordList" type="record:VocabloryRecord"
+				<xsd:element name="RecordList" type="record:VocabloryRecord" 
 					minOccurs="0" maxOccurs="unbounded" />
 			</xsd:sequence>
 		</xsd:complexType>
