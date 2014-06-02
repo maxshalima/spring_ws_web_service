@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns="http://by/test/webservices/recordservice" xmlns:record="http://webservices.test.by"
+	targetNamespace="http://by/test/webservices/recordservice"
+	elementFormDefault="qualified">
+
+	<xsd:import namespace="http://webservices.test.by"
+		schemaLocation="VocabloryRecord.xsd" />
+
+	<xsd:element name="GetAllVocabloriesRequest">
+		<xsd:complexType>
+			<xsd:sequence>
+				<!-- <xsd:element name="someparam" type="xsd:long" /> -->
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="GetAllVocabloriesResponse">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="VocabloriesList" type="xsd:string"
+					minOccurs="0" maxOccurs="unbounded" />
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:element name="GetNumberOfRecordsRequest">
+		<xsd:complexType>
+			<xsd:sequence>
+				<!-- <xsd:element name="someparam" type="xsd:long" /> -->
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="GetNumberOfRecordsResponse">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="RecordNumber" type="xsd:string" />
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:element name="AddRecordToVocabloryRequest">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="VocabloryName" type="xsd:string" />
+				<xsd:element name="Content" type="xsd:long" />
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="AddRecordToVocabloryResponse">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="isSuccessed" type="xsd:boolean" />
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:element name="SearchRecordsRequest">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="Content" type="xsd:long" />
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="SearchRecordsResponse">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="RecordList" type="record:VocabloryRecord"
+					minOccurs="0" maxOccurs="unbounded" />
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>  
