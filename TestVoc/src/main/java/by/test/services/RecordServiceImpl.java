@@ -6,6 +6,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import ru.blogic.test.storage.Manager;
@@ -19,12 +21,14 @@ import by.test.webservices.VocabloryRecord;
 public class RecordServiceImpl implements RecordService {
 
 	@Override
+	@Cacheable("vocabloryList")
 	public List<String> getAllVocabloryNames() throws Exception {
 		Storage storage = Manager.getInstance().getStorage();
 		return storage.getDictionariesNames();
 	}
 
 	@Override
+	@Cacheable("recordNumber")
 	public String getNumberOfRecords() throws Exception {
 		Storage storage = Manager.getInstance().getStorage();
 
@@ -40,6 +44,7 @@ public class RecordServiceImpl implements RecordService {
 	}
 
 	@Override
+	@CacheEvict(value = { "searchRecords", "recordNumber" }, allEntries = true)
 	public boolean addRecordToVoc(String aVocName, Long aContent) {
 		Storage storage;
 		try {
@@ -54,6 +59,7 @@ public class RecordServiceImpl implements RecordService {
 	}
 
 	@Override
+	@Cacheable("searchRecords")
 	public List<VocabloryRecord> searchRecordsLessThan(Long aLessThan,
 			String aVocName) throws Exception {
 		Storage storage = Manager.getInstance().getStorage();

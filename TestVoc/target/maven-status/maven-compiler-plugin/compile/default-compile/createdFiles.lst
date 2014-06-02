@@ -5,9 +5,7 @@ by\test\services\RecordService.class
 by\test\webservices\recordservice\GetAllVocabloriesResponse.class
 by\test\webservices\recordservice\SearchRecordsRequest.class
 by\test\webservices\recordservice\GetAllVocabloriesRequest.class
-by\test\ExampleTestService.class
 by\test\webservices\VocabloryRecord.class
-by\test\main.class
 by\test\webservices\recordservice\SearchRecordsResponse.class
 by\test\webservices\recordservice\ObjectFactory.class
 by\test\webservices\package-info.class
