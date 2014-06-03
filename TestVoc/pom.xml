@@ -109,7 +109,7 @@
 					<enableIntrospection>false</enableIntrospection>
 				</configuration>
 			</plugin>
- 
+
 			<plugin>
 				<artifactId>maven-war-plugin</artifactId>
 				<version>2.3</version>
@@ -125,30 +125,40 @@
 					</webResources>
 				</configuration>
 			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>exec-maven-plugin</artifactId>
-				<executions>
-					<execution>
-						<goals>
-							<goal>exec</goal>
-						</goals>
-						<phase>install</phase>
-					</execution>
-				</executions>
-				<configuration>
-					<executable>asadmin</executable>
-					<arguments>
-						<argument>deploy</argument>
-						<argument>--user=admin</argument>
-						<argument>--host=localhost</argument>
-						<argument>--port=4848</argument>
-						<argument>--force=true</argument>
-						<argument>--passwordfile=./paswords.txt</argument>
-						<argument>target/${project.name}-${project.version}.war</argument>
-					</arguments>
-				</configuration>
-			</plugin>
 		</plugins>
 	</build>
+
+	<profiles>
+		<profile>
+			<id>deploy</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>exec-maven-plugin</artifactId>
+						<executions>
+							<execution>
+								<goals>
+									<goal>exec</goal>
+								</goals>
+								<phase>install</phase>
+							</execution>
+						</executions>
+						<configuration>
+							<executable>asadmin</executable>
+							<arguments>
+								<argument>deploy</argument>
+								<argument>--user=admin</argument>
+								<argument>--host=localhost</argument>
+								<argument>--port=4848</argument>
+								<argument>--force=true</argument>
+								<argument>--passwordfile=./paswords.txt</argument>
+								<argument>target/${project.name}-${project.version}.war</argument>
+							</arguments>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 </project>
