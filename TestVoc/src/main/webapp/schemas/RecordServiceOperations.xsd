@@ -24,7 +24,7 @@
 	</xsd:element>
 
 	<xsd:element name="GetNumberOfRecordsRequest">
-		<xsd:complexType>
+		<xsd:complexType> 
 			<xsd:sequence>
 				<!-- <xsd:element name="someparam" type="xsd:long" /> -->
 			</xsd:sequence>
