@@ -8,5 +8,5 @@
 			<xs:element name="ID" type="xs:string" />
 			<xs:element name="VocabloryName" type="xs:string" />
 		</xs:sequence>
-	</xs:complexType>
+	</xs:complexType> 
 </xs:schema>
