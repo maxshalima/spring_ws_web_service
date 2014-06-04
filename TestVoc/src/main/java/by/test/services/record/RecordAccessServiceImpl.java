@@ -12,27 +12,25 @@ import by.test.services.dictionary.DictionaryService;
 @Service
 public class RecordAccessServiceImpl implements RecordAccessService {
 
-	@Autowired
-	private DictionaryService dictionaryService_i;
+    @Autowired
+    private DictionaryService dictionaryService_i;
 
-	@Override
-	@Cacheable("allRecordIdsFromVoc")
-	public List<String> getAllRecordsIds(String aVocName) throws Exception {
-		return dictionaryService_i.getDictionary(aVocName).getAllRecordsIds();
-	}
+    @Override
+    @Cacheable(value = "allRecordIdsFromVoc", key = "#aVocName")
+    public List<String> getAllRecordsIds(String aVocName) throws Exception {
+        return dictionaryService_i.getDictionary(aVocName).getAllRecordsIds();
+    }
 
-	@Override
-	@Cacheable("record")
-	public Record getRecord(String aVocName, String anRecordId)
-			throws Exception {
-		return dictionaryService_i.getDictionary(aVocName)
-				.getRecord(anRecordId);
-	}
+    @Override
+    @Cacheable("record")
+    public Record getRecord(String aVocName, String anRecordId) throws Exception {
+        return dictionaryService_i.getDictionary(aVocName).getRecord(anRecordId);
+    }
 
-	@Override
-	@Cacheable("recordCount")
-	public int getRecordCount(String aVocName) throws Exception {
-		return dictionaryService_i.getDictionary(aVocName).getRecordCount();
-	}
+    @Override
+    @Cacheable(value = "recordCount", key = "#aVocName")
+    public int getRecordCount(String aVocName) throws Exception {
+        return dictionaryService_i.getDictionary(aVocName).getRecordCount();
+    }
 
 }

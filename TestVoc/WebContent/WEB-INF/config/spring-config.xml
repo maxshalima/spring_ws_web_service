@@ -37,7 +37,6 @@
 				<bean
 					class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean"
 					p:name="searchRecords" />
-
 				<bean
 					class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean"
 					p:name="recordCount" />
@@ -74,6 +73,5 @@
 		<property name="serviceName" value="RecordServiceServices" />
 		<property name="locationUri" value="/endpoints" />
 	</bean>
-
 
 </beans>

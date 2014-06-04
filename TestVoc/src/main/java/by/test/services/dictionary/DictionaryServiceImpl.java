@@ -11,16 +11,16 @@ import ru.blogic.test.storage.Storage.Dictionary;
 @Service
 public class DictionaryServiceImpl implements DictionaryService {
 
-	@Override
-	@Cacheable("vocabloryNamesList")
-	public List<String> getDictionariesNames() throws Exception {
-		return Manager.getInstance().getStorage().getDictionariesNames();
-	}
+    @Override
+    @Cacheable("vocabloryNamesList")
+    public List<String> getDictionariesNames() throws Exception {
+        return Manager.getInstance().getStorage().getDictionariesNames();
+    }
 
-	@Override
-	@Cacheable("dictionary")
-	public Dictionary getDictionary(String aVocName) throws Exception {
-		return Manager.getInstance().getStorage().getDictionary(aVocName);
-	}
+    @Override
+    @Cacheable(value = "dictionary", key = "#aVocName")
+    public Dictionary getDictionary(String aVocName) throws Exception {
+        return Manager.getInstance().getStorage().getDictionary(aVocName);
+    }
 
 }
