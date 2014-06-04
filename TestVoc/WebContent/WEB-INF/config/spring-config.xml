@@ -18,13 +18,29 @@
 			<set>
 				<bean
 					class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean"
+					p:name="vocabloryNamesList" />
+				<bean
+					class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean"
+					p:name="dictionary" />
+				<bean
+					class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean"
+					p:name="numberOfAllRecords" />
+				<bean
+					class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean"
+					p:name="allRecordIdsFromVoc" />
+				<bean
+					class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean"
+					p:name="record" />
+				<bean
+					class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean"
+					p:name="allSortedVocabloryRecords" />
+				<bean
+					class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean"
 					p:name="searchRecords" />
+
 				<bean
 					class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean"
-					p:name="vocabloryList" />
-				<bean
-					class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean"
-					p:name="recordNumber" />
+					p:name="recordCount" />
 			</set>
 		</property>
 	</bean>

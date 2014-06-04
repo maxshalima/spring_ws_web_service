@@ -1,11 +1,9 @@
 package by.test.services;
 
 import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -13,39 +11,44 @@ import org.springframework.stereotype.Service;
 import ru.blogic.test.storage.Manager;
 import ru.blogic.test.storage.Storage;
 import ru.blogic.test.storage.Storage.Dictionary;
-import ru.blogic.test.storage.Storage.Dictionary.Record;
-import ru.blogic.test.storage.Storage.Dictionary.RecordAttr;
+import by.test.services.dictionary.DictionaryService;
+import by.test.services.record.RecordAccessService;
+import by.test.services.vocabloryrecord.VocabloryRecordService;
 import by.test.webservices.VocabloryRecord;
 
 @Service
 public class RecordServiceImpl implements RecordService {
 
+	@Autowired
+	private RecordAccessService recordAccessService_i;
+
+	@Autowired
+	private DictionaryService DictionaryService_i;
+
+	@Autowired
+	private VocabloryRecordService vocabloryRecordService_i;
+
 	@Override
-	@Cacheable("vocabloryList")
 	public List<String> getAllVocabloryNames() throws Exception {
-		// searchRecordsLessThan((long)1,"Dict1");
-		Storage storage = Manager.getInstance().getStorage();
-		return storage.getDictionariesNames();
+		return DictionaryService_i.getDictionariesNames();
 	}
 
 	@Override
-	@Cacheable("recordNumber")
+	@Cacheable("numberOfAllRecords")
 	public String getNumberOfRecords() throws Exception {
-		Storage storage = Manager.getInstance().getStorage();
-
 		BigInteger count = BigInteger.valueOf(0);
-		List<String> allVocNameList = getAllVocabloryNames();
+		List<String> allVocNameList = DictionaryService_i
+				.getDictionariesNames();
+
 		for (String vocName : allVocNameList) {
-			Dictionary dictionary = storage.getDictionary(vocName);
-			int dictCount = dictionary.getRecordCount();
+			int dictCount = recordAccessService_i.getRecordCount(vocName);
 			count = count.add(BigInteger.valueOf(dictCount));
 		}
-
 		return count.toString();
 	}
 
 	@Override
-	@CacheEvict(value = { "searchRecords", "recordNumber" }, allEntries = true)
+	@CacheEvict(value = { "searchRecords" }, allEntries = true)
 	public boolean addRecordToVoc(String aVocName, Long aContent) {
 		Storage storage;
 		try {
@@ -63,28 +66,9 @@ public class RecordServiceImpl implements RecordService {
 	@Cacheable("searchRecords")
 	public List<VocabloryRecord> searchRecordsLessThan(Long aLessThan,
 			String aVocName) throws Exception {
-		Storage storage = Manager.getInstance().getStorage();
-		Dictionary dictionary = storage.getDictionary(aVocName);
-		List<String> allRecordsIds = dictionary.getAllRecordsIds();
-		List<VocabloryRecord> allRecords = new ArrayList<VocabloryRecord>();
 
-		for (String recId : allRecordsIds) {
-			Record record = dictionary.getRecord(recId);
-			VocabloryRecord vocabloryRecord = new VocabloryRecord();
-			vocabloryRecord.setID(record.getId());
-			vocabloryRecord.setContent(Long.parseLong((String) record
-					.getAttributes().get(RecordAttr.CONTENT)));
-			allRecords.add(vocabloryRecord);
-		}
-
-		Collections.sort(allRecords, new Comparator<VocabloryRecord>() {
-			@Override
-			public int compare(VocabloryRecord record1, VocabloryRecord record2) {
-				Long conten1 = record1.getContent();
-				Long conten2 = record2.getContent();
-				return conten1.compareTo(conten2);
-			}
-		});
+		List<VocabloryRecord> allRecords = vocabloryRecordService_i
+				.getGetAllSortedVocabloryRecords(aVocName);
 
 		int i;
 		for (i = 0; i < allRecords.size(); i++) {
