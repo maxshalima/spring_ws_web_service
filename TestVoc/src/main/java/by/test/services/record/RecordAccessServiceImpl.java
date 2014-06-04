@@ -16,13 +16,13 @@ public class RecordAccessServiceImpl implements RecordAccessService {
     private DictionaryService dictionaryService_i;
 
     @Override
-    @Cacheable(value = "allRecordIdsFromVoc", key = "#aVocName")
+    //@Cacheable(value = "allRecordIdsFromVoc", key = "#aVocName")
     public List<String> getAllRecordsIds(String aVocName) throws Exception {
         return dictionaryService_i.getDictionary(aVocName).getAllRecordsIds();
     }
 
     @Override
-    @Cacheable("record")
+    //@Cacheable("record")
     public Record getRecord(String aVocName, String anRecordId) throws Exception {
         return dictionaryService_i.getDictionary(aVocName).getRecord(anRecordId);
     }

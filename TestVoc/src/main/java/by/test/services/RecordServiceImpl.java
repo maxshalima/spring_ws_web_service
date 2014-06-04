@@ -24,21 +24,21 @@ public class RecordServiceImpl implements RecordService {
     private RecordAccessService recordAccessService_i;
 
     @Autowired
-    private DictionaryService DictionaryService_i;
+    private DictionaryService dictionaryService_i;
 
     @Autowired
     private VocabloryRecordService vocabloryRecordService_i;
 
     @Override
     public List<String> getAllVocabloryNames() throws Exception {
-        return DictionaryService_i.getDictionariesNames();
+        return dictionaryService_i.getDictionariesNames();
     }
 
     @Override
     @Cacheable("numberOfAllRecords")
     public String getNumberOfRecords() throws Exception {
         BigInteger count = BigInteger.valueOf(0);
-        List<String> allVocNameList = DictionaryService_i.getDictionariesNames();
+        List<String> allVocNameList = dictionaryService_i.getDictionariesNames();
 
         for (String vocName : allVocNameList) {
             int dictCount = recordAccessService_i.getRecordCount(vocName);
@@ -47,18 +47,23 @@ public class RecordServiceImpl implements RecordService {
         return count.toString();
     }
 
+    //    @Caching(evict = { @CacheEvict(value = "numberOfAllRecords", allEntries = true),
+    //            @CacheEvict(value = "dictionary", key = "#aVocName"),
+    //            @CacheEvict(value = "allRecordIdsFromVoc", key = "#aVocName"),
+    //            @CacheEvict(value = "recordCount", key = "#aVocName"),
+    //            @CacheEvict(value = "allSortedVocabloryRecords", key = "#aVocName"),
+    //            @CacheEvict(value = "searchRecords", allEntries = true) })
+
     @Override
     @Caching(evict = { @CacheEvict(value = "numberOfAllRecords", allEntries = true),
             @CacheEvict(value = "dictionary", key = "#aVocName"),
-            @CacheEvict(value = "allRecordIdsFromVoc", key = "#aVocName"),
             @CacheEvict(value = "recordCount", key = "#aVocName"),
-            @CacheEvict(value = "allSortedVocabloryRecords", key = "#aVocName"),
-            @CacheEvict(value = "searchRecords", allEntries = true) })
+            @CacheEvict(value = "searchRecords", allEntries = true),
+            @CacheEvict(value = "allSortedVocabloryRecords", key = "#aVocName") })
     public boolean addRecordToVoc(String aVocName, Long aContent) {
-        Storage storage;
+
         try {
-            storage = Manager.getInstance().getStorage();
-            Dictionary dictionary = storage.getDictionary(aVocName);
+            Dictionary dictionary = dictionaryService_i.getDictionary(aVocName);
             dictionary.addRecord(aContent.toString());
         } catch (Exception e) {
             e.printStackTrace();
@@ -69,7 +74,7 @@ public class RecordServiceImpl implements RecordService {
 
     @Override
     @Cacheable("searchRecords")
-    public List<VocabloryRecord> searchRecordsLessThan(Long aLessThan, String aVocName) throws Exception {
+    public List<VocabloryRecord> searchRecordsLessThan(String aVocName, Long aLessThan) throws Exception {
 
         List<VocabloryRecord> allRecords = vocabloryRecordService_i.getGetAllSortedVocabloryRecords(aVocName);
 
