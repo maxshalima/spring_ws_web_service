@@ -9,8 +9,6 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
 
-import ru.blogic.test.storage.Manager;
-import ru.blogic.test.storage.Storage;
 import ru.blogic.test.storage.Storage.Dictionary;
 import by.test.services.dictionary.DictionaryService;
 import by.test.services.record.RecordAccessService;
