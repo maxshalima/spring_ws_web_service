@@ -22,7 +22,7 @@ public class RecordAccessServiceImpl implements RecordAccessService {
     }
 
     @Override
-    //@Cacheable("record")
+    @Cacheable("record")
     public Record getRecord(String aVocName, String anRecordId) throws Exception {
         return dictionaryService_i.getDictionary(aVocName).getRecord(anRecordId);
     }
